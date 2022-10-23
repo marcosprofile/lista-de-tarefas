@@ -12,9 +12,9 @@ import { ActionSheetController } from '@ionic/angular';
 export class HomePage {
   tarefaCollection: any[]=[];
   
-  constructor( private alertCtrl : AlertController,
-               private tarefaService : TarefaService,
-               private actionSheetCtrl : ActionSheetController) {}
+  constructor( private alertCtrl: AlertController,
+               private tarefaService: TarefaService,
+               private actionSheetCtrl: ActionSheetController) {}
 
   ionViewDidEnter() {
     this.listarTarefa();
