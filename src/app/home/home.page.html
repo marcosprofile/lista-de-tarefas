@@ -1,20 +1,44 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
+  <ion-toolbar color="primary">
+    <ion-title class="animate__animated animate__fadeInRight">
+      Lista de Tarefas
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list class="animate__animated animate__fadeInUp">
+    <ion-item *ngIf="tarefaCollection.length < 1">
+      <ion-label>Não há tarefas</ion-label>
+    </ion-item>
+    <ion-item-sliding *ngFor="let item of tarefaCollection">
+      <ion-item (click)="openActions(item)">
+        <ion-label>
+          <h3 *ngIf="item.feito === true"><del>{{item.tarefa}}</del></h3>
+          <h3 *ngIf="item.feito === false">{{item.tarefa}}</h3>
+          <div class="pendente" *ngIf="item.feito === false">
+            Pendente
+          </div>
+          <div class="realizada" *ngIf="item.feito !== false">
+            Realizada
+          </div>
+        </ion-label>
+        <ion-icon slot="start" name="information-circle" color="warning" *ngIf="!item.feito"></ion-icon>
+        <ion-icon slot="start" name="checkmark-circle" color="success" *ngIf="item.feito"></ion-icon>
+      </ion-item>
+      
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="delete(item)">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Excluir
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="showAdd()" color="primary" class="animate__animated animate__fadeInRight">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
